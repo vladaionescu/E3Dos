@@ -1,0 +1,2 @@
+10 x 20
+" !\"#$%&\'()*+,-./0123456789:;<=>?\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\n`abcdefghijklmnopqrstuvwxyz{|}~"

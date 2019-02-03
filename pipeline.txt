@@ -1,0 +1,86 @@
+
+// This is a sketch that represents the engine's "pipeline".
+// It is written in C++ in order to provide a logic model of the engine.
+// It is easy to read and also illustrates very well the complexity of the engine (even though some parts are more complex than they seem).
+// Not all steps are mandatory, and at the same time not all steps are mentioned here.
+
+
+
+
+void Render(...);
+
+
+
+void Pipeline()
+{
+	MoveAndTransformMeshes();
+	
+	for(EACH_DYNAMIC_TEXTURE)
+		Render(Texture);
+	
+	Render(BackBuffer);
+	
+	WaitVerticalRetrace();
+	CopyBackBufferToVideoMemory();
+}
+
+
+
+void Render(...)
+{
+	ClearZBuffer(); // This step is different in AlphaBuffering
+	
+	// 3D Layer
+	Transformations(View);
+	Transformations(World);
+	
+	
+	
+	// Projection:
+	for(EACH_TRI)
+	{
+		Transformations(Vertex);
+		CalcInterpolationVals(); // Calc light effect, etc.
+		Clip(NearPlane);
+		
+		// 2D Layer
+		TransformTo2DCoords(Vertex);
+		Clip(Frostrum); // Note: This is 2D (3D is to be implemented in the future)
+		CalcConsts(); // Some general things used for all vertices in the Tri (e.g.: a MipMapping constant)
+		
+		Sort(Vertex); // Sorts the Tri points by y coord
+		
+		
+		
+		// Rasterization:
+		StartInterpolation(); // Calculate the first values for interpolation
+		
+		// Pixel layer
+		Clip(Y); // y clipping
+		
+		for(EACH_Y)
+		{
+			Clip(X); // x clipping
+			
+			for(EACH_X)
+			{
+				CheckZBuffer(); // This step is skipped in AlphaBuffering
+				GetPixelColor(); // This may include TextureMapping, Filtering, MipMapping, Lighting, AlphaBlending/AlphaMapping (and AlphaBuffering) etc. This procedure may use some layers above the "pixel layer"
+				PutPixel(); // This function may also use "insert" sorting (in AlphaBuffering)
+			}
+		}
+	}
+	
+	
+	
+	
+	// 2D Effects:
+	MotionBlur();
+	AntiAliasing();
+	// etc.
+	
+	
+	
+	// Overlay:
+	Write(); // Written onscreen messages
+}

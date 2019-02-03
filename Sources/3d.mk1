@@ -1,0 +1,164 @@
+!define BLANK ""
+D:\watcom\Sources\3D\2DGraph.obj : D:\watcom\Sources\3D\2DGraph.cpp .AUTODEP&
+END
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 2DGraph.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -o&
+m -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\3D.obj : D:\watcom\Sources\3D\3D.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 3D.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\3DGraph.obj : D:\watcom\Sources\3D\3DGraph.cpp .AUTODEP&
+END
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 3DGraph.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -o&
+m -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\3DLine.obj : D:\watcom\Sources\3D\3DLine.cpp .AUTODEPEN&
+D
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 3DLine.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om&
+ -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\3DTri.obj : D:\watcom\Sources\3D\3DTri.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 3DTri.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om &
+-oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\ABuffer.obj : D:\watcom\Sources\3D\ABuffer.cpp .AUTODEP&
+END
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 ABuffer.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -o&
+m -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Aliasing.obj : D:\watcom\Sources\3D\Aliasing.cpp .AUTOD&
+EPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Aliasing.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -&
+om -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Font.obj : D:\watcom\Sources\3D\Font.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Font.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om -&
+oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Heap.obj : D:\watcom\Sources\3D\Heap.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Heap.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om -&
+oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\HField.obj : D:\watcom\Sources\3D\HField.cpp .AUTODEPEN&
+D
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 HField.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om&
+ -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\KeyInput.obj : D:\watcom\Sources\3D\KeyInput.cpp .AUTOD&
+EPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 KeyInput.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -&
+om -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Lighting.obj : D:\watcom\Sources\3D\Lighting.cpp .AUTOD&
+EPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Lighting.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -&
+om -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Logging.obj : D:\watcom\Sources\3D\Logging.cpp .AUTODEP&
+END
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Logging.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -o&
+m -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\MotiBlur.obj : D:\watcom\Sources\3D\MotiBlur.cpp .AUTOD&
+EPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 MotiBlur.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -&
+om -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Mouse.obj : D:\watcom\Sources\3D\Mouse.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Mouse.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om &
+-oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Movie.obj : D:\watcom\Sources\3D\Movie.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Movie.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om &
+-oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\PBar.obj : D:\watcom\Sources\3D\PBar.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 PBar.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om -&
+oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Random.obj : D:\watcom\Sources\3D\Random.cpp .AUTODEPEN&
+D
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Random.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om&
+ -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\SB.obj : D:\watcom\Sources\3D\SB.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 SB.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om -oc&
+ -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Surface.obj : D:\watcom\Sources\3D\Surface.cpp .AUTODEP&
+END
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Surface.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -o&
+m -oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\TimeF.obj : D:\watcom\Sources\3D\TimeF.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 TimeF.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om &
+-oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\Trans.obj : D:\watcom\Sources\3D\Trans.cpp .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ *wpp386 Trans.cpp -i=D:\watcom\h -w4 -e25 -zq -otexan -of -ob -ol -ol+ -om &
+-oc -oi -oa -or -oe20 -d3 -fp6 -fpi87 -6r -bt=dos -mf
+
+D:\watcom\Sources\3D\3d.exe : D:\watcom\Sources\3D\2DGraph.obj D:\watcom\Sou&
+rces\3D\3D.obj D:\watcom\Sources\3D\3DGraph.obj D:\watcom\Sources\3D\3DLine.&
+obj D:\watcom\Sources\3D\3DTri.obj D:\watcom\Sources\3D\ABuffer.obj D:\watco&
+m\Sources\3D\Aliasing.obj D:\watcom\Sources\3D\Font.obj D:\watcom\Sources\3D&
+\Heap.obj D:\watcom\Sources\3D\HField.obj D:\watcom\Sources\3D\KeyInput.obj &
+D:\watcom\Sources\3D\Lighting.obj D:\watcom\Sources\3D\Logging.obj D:\watcom&
+\Sources\3D\MotiBlur.obj D:\watcom\Sources\3D\Mouse.obj D:\watcom\Sources\3D&
+\Movie.obj D:\watcom\Sources\3D\PBar.obj D:\watcom\Sources\3D\Random.obj D:\&
+watcom\Sources\3D\SB.obj D:\watcom\Sources\3D\Surface.obj D:\watcom\Sources\&
+3D\TimeF.obj D:\watcom\Sources\3D\Trans.obj .AUTODEPEND
+ @D:
+ cd D:\watcom\Sources\3D
+ @%write 3d.lk1 FIL 2DGraph.obj,3D.obj,3DGraph.obj,3DLine.obj,3DTri.obj,ABuf&
+fer.obj,Aliasing.obj,Font.obj,Heap.obj,HField.obj,KeyInput.obj,Lighting.obj,&
+Logging.obj,MotiBlur.obj,Mouse.obj,Movie.obj,PBar.obj,Random.obj,SB.obj,Surf&
+ace.obj,TimeF.obj,Trans.obj
+ @%append 3d.lk1 
+ *wlink name 3d SYS dos4g op st=64k op maxe=25 op symf op el @3d.lk1
+
