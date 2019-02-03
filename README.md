@@ -12,6 +12,16 @@ Some interesting parts:
 * [This is how each pixel was plotted](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.h#L26)
 * [This is where the projection math happens](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/ViewPort.h). Back then I only had internet once per week, so I made these calculations myself, from first principles. Later found out that people use matrix math for this stuff, which is more elegant.
 
+To run, you will need dosbox (eg `apt-get install dosbox`). Then
+
+```bash
+cd Sources
+dosbox ride.exe
+dosbox 3d.exe
+```
+
+For some reason, ride.exe runs very slowly for me and 3d.exe does not run at all. Not sure how to bring them back to life.
+
 Below is the introductory text & screenshots from that time.
 
 
