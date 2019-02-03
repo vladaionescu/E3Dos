@@ -122,3 +122,9 @@ The older version “.\Exe\Ride (From old version).exe” should work on any car
 ![Gallery/High%20Resolution%207.png](Gallery/High%20Resolution%207.png)
 
 ![Logo](Gallery/Logo%202.png)
+
+### Videos
+
+[![Bilinear Filtering, Linear Fog, Displacement Mapping](https://img.youtube.com/vi/15lonNlcoho/0.jpg)](https://www.youtube.com/watch?v=15lonNlcoho)
+
+[![Height Field and Mesh Demo](https://img.youtube.com/vi/4w3oeQvUnC0/0.jpg)](https://www.youtube.com/watch?v=4w3oeQvUnC0)
