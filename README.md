@@ -1,6 +1,18 @@
 # E3Dos
 
-A 3D Engine I wrote as a kid in C++ with some inline assembly. Below is the introductory text & screenshots from that time.
+A 3D Engine I wrote as a kid in C++ with some inline assembly.
+
+Some interesting parts:
+
+* [The logic for projecting and drawing triangles onto view port](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/3DTri.cpp)
+* [Rendering text on the screen (all done manually, letter by letter)](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Font.cpp)
+* [Lighting calculations](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Lighting.cpp#L42)
+* [The drawing surface](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.cpp). Surface could be used as the screen or as textures. You could also render onto textures to create things like eg mirrors. This also includes the mip-mapping engine that I wrote from scratch.
+* [This is how pixel coordinates were transformed to memory location](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.h#L13)
+* [This is how each pixel was plotted](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.h#L26)
+* [This is where the projection math happens](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/ViewPort.h). Back then I only had internet once per week, so I made these calculations myself, from first principles. Later found out that people use matrix math for this stuff, which is more elegant.
+
+Below is the introductory text & screenshots from that time.
 
 
 ### E3Dos Graphics Engine
