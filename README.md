@@ -4,23 +4,63 @@ A 3D Engine I wrote as a kid in C++ with some inline assembly.
 
 Some interesting parts:
 
-* [The logic for projecting and drawing triangles onto view port](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/3DTri.cpp)
-* [Rendering text on the screen (all done manually, letter by letter)](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Font.cpp)
-* [Lighting calculations](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Lighting.cpp#L42)
-* [The drawing surface](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.cpp). Surface could be used as the screen or as textures. You could also render onto textures to create things like eg mirrors. This also includes the mip-mapping engine that I wrote from scratch.
-* [This is how pixel coordinates were transformed to memory location](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.h#L13)
-* [This is how each pixel was plotted](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/Surface.h#L26)
-* [This is where the projection math happens](https://github.com/vlad-alexandru-ionescu/E3Dos/blob/master/Sources/ViewPort.h). Back then I only had internet once per week, so I made these calculations myself, from first principles. Later found out that people use matrix math for this stuff, which is more elegant.
+* [The logic for projecting and drawing triangles onto view port](https://github.com/vladaionescu/E3Dos/blob/master/Sources/3DTri.cpp)
+* [Rendering text on the screen (all done manually, letter by letter)](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Font.cpp)
+* [Lighting calculations](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Lighting.cpp#L42)
+* [The drawing surface](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.cpp). Surface could be used as the screen or as textures. You could also render onto textures to create things like eg mirrors. This also includes the mip-mapping engine that I wrote from scratch.
+* [This is how pixel coordinates were transformed to memory location](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.h#L13)
+* [This is how each pixel was plotted](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.h#L26)
+* [This is where the projection math happens](https://github.com/vladaionescu/E3Dos/blob/master/Sources/ViewPort.h). Back then I only had internet once per week, so I made these calculations myself, from first principles. Later found out that people use matrix math for this stuff, which is more elegant.
 
-To run, you will need dosbox (eg `apt-get install dosbox`). Then
+### Running in DOSBox-X (2026)
 
-```bash
-cd Sources
-dosbox ride.exe
-dosbox 3d.exe
-```
+The engine uses VESA mode `0x10F` (320x200, 24-bit color) which requires specific DOSBox configuration. Standard DOSBox doesn't handle this mode correctly. Here's how to get it running on macOS:
 
-For some reason, ride.exe runs very slowly for me and 3d.exe does not run at all. Not sure how to bring them back to life.
+1. **Install DOSBox-X** (not regular DOSBox):
+   ```bash
+   brew install --cask dosbox-x
+   ```
+
+2. **Sound files**: Minimal placeholder WAV files are included in `Sources/SOUNDS/`. The engine calls `exit(1)` if these files are missing. The placeholders are silent but satisfy the loader; sounds are only played on keypress so this has no effect on the visuals.
+
+3. **Configure DOSBox-X** by editing `~/Library/Preferences/DOSBox-X <version> Preferences`:
+   ```ini
+   [dosbox]
+   machine = vesa_nolfb        # standard VESA without S3-specific quirks
+
+   [dosbox]
+   memsize = 64                # engine loads ~30MB of assets
+
+   [video]
+   vmemsize = 8
+   allow explicit 24bpp vesa modes = true
+   allow 24bpp vesa modes = true
+   allow low resolution vesa modes = true
+   vbe window granularity = 64
+   vesa bank switching window mirroring = true
+   vesa vbe 1.2 modes are 32bpp = false
+   ```
+
+   Key settings explained:
+   - `machine = vesa_nolfb` -- the S3 Trio64 emulation (`svga_s3`) internally uses 32bpp for 24-bit modes, causing a stride mismatch with the engine's pixel layout
+   - `memsize = 64` -- the engine loads large textures (Earth, Moon, Mars, Stars) plus ~12MB of sound files; 16MB is not enough
+   - `vesa vbe 1.2 modes are 32bpp = false` -- forces true 24-bit pixel layout
+   - `vbe window granularity = 64` -- matches the 64KB bank switching granules the engine's `CopyBackBuffer` expects
+
+4. **Run**:
+   ```bash
+   cd Sources
+   /Applications/dosbox-x.app/Contents/MacOS/dosbox-x 3d.exe
+   ```
+
+Controls: Arrow keys to move/rotate camera, various letter keys toggle features (B = generate bumps, F = cycle text color, etc.). Press Escape to exit.
+
+`ride.exe` is a wireframe tunnel/rollercoaster demo from an earlier version of the engine (pre-triangles, 8-bit color only). It uses VGA mode 0x13 (320x200 256-color) and needs the standard `svga_s3` machine type instead of `vesa_nolfb`:
+   ```bash
+   cd Sources
+   /Applications/dosbox-x.app/Contents/MacOS/dosbox-x -set "dosbox machine=svga_s3" ride.exe
+   ```
+   Note: ride.exe requires `BITMAPS/Ride.bmp` and `BITMAPS/BRide.bmp` (included in the repo) for its splash screen.
 
 Below is the introductory text & screenshots from that time.
 
