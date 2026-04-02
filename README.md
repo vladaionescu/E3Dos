@@ -26,6 +26,8 @@ Some of the more interesting things buried in this codebase:
 
 * **[Transition Effects](Sources/Trans.cpp#L38-L61)** -- A cinematic screen wipe: a glowing vertical light bar sweeps across the screen, revealing the new image behind it. The glow falloff uses a specular power curve (`Pow(..., Ns)`), repurposing the Phong lighting exponent for a 2D effect.
 
+* **[Frame Timing from an 18.2 Hz Clock](Sources/TimeF.cpp)** -- The DOS BIOS timer only ticks at 18.2 Hz (~55ms per tick), which is *slower* than the frame rate. A naive approach would cause freeze-freeze-JUMP stuttering. The `dTIME` class works around this by computing a running average of frame time over multiple frames, then periodically committing it as the current time delta. This effectively recovers smooth sub-tick timing from an undersampled clock signal. When [recording movies](Sources/3D.cpp#L645), a fixed time step is forced instead (`dTime.Variation=ClockTick/29.9697f`) so playback runs at a consistent rate regardless of actual render speed.
+
 * **[Rendering Text from Bitmap Fonts](Sources/Font.cpp)** -- Every glyph loaded from a BMP file and rendered pixel by pixel.
 
 * **[Lighting](Sources/Lighting.cpp#L42)** -- Ambient, diffuse, and specular (Phong model) with HDR / over-bright support.
