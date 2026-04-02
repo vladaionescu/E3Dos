@@ -1,6 +1,6 @@
 # E3Dos
 
-A software 3D rendering engine I wrote between the ages of 14 and 16, in C++ with inline x86 assembly, targeting DOS protected mode (Open Watcom 1.3, Dos/4GW). About 11,000 lines of code.
+A software 3D rendering engine I wrote between the ages of 14 and 17, in C++ with inline x86 assembly, targeting DOS protected mode (Open Watcom 1.3, Dos/4GW). About 11,000 lines of code.
 
 I built this with almost no internet access -- maybe an hour or two per week. Nearly all the math (projection, clipping, rasterization, mip-mapping, lighting, terrain generation) was derived from first principles. The 1/z perspective correction and Sound Blaster audio setup were the two things I actually found online; everything else I figured out on my own, often by thinking through the geometry on the bus between school and home.
 
