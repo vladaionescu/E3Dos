@@ -1,16 +1,36 @@
 # E3Dos
 
-A 3D Engine I wrote as a kid in C++ with some inline assembly.
+A software 3D rendering engine I wrote between the ages of 14 and 16, in C++ with inline x86 assembly, targeting DOS protected mode (Open Watcom 1.3, Dos/4GW). About 11,000 lines of code.
 
-Some interesting parts:
+I built this with almost no internet access -- maybe an hour or two per week. Nearly all the math (projection, clipping, rasterization, mip-mapping, lighting, terrain generation) was derived from first principles. The 1/z perspective correction and Sound Blaster audio setup were the two things I actually found online; everything else I figured out on my own, often by thinking through the geometry on the bus between school and home.
 
-* [The logic for projecting and drawing triangles onto view port](https://github.com/vladaionescu/E3Dos/blob/master/Sources/3DTri.cpp)
-* [Rendering text on the screen (all done manually, letter by letter)](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Font.cpp)
-* [Lighting calculations](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Lighting.cpp#L42)
-* [The drawing surface](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.cpp). Surface could be used as the screen or as textures. You could also render onto textures to create things like eg mirrors. This also includes the mip-mapping engine that I wrote from scratch.
-* [This is how pixel coordinates were transformed to memory location](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.h#L13)
-* [This is how each pixel was plotted](https://github.com/vladaionescu/E3Dos/blob/master/Sources/Surface.h#L26)
-* [This is where the projection math happens](https://github.com/vladaionescu/E3Dos/blob/master/Sources/ViewPort.h). Back then I only had internet once per week, so I made these calculations myself, from first principles. Later found out that people use matrix math for this stuff, which is more elegant.
+I didn't know at the time that what I was building had formal names in computer graphics literature, or that the approaches I came up with were the same ones used by real engines. I just thought it was fun.
+
+### Technical Highlights
+
+Some of the more interesting things buried in this codebase:
+
+* **[View Transform](Sources/ViewPort.h#L101-L139)** -- To simplify projection math, I had the idea to transform the entire world so the camera sits at the origin looking down a fixed axis. This is the standard world-to-camera transform that every graphics engine uses, but I didn't know that -- I thought it was just a hack to make the math tractable. The `// no need:` comments document where I deliberately skipped transforming vectors that had already served their purpose.
+
+* **[Template-Based Triangle Rasterizer](Sources/3DTri.h#L31-L108)** -- The core rasterizer is a C++ template `_TRI3D<VALUES, CONSTS>` that doesn't know *what* it's interpolating. Each triangle type (flat-colored, textured, lit+textured) provides its own `VALUES` struct with operator overloads (`+`, `-`, `*`, `/`), and the rasterizer interpolates them generically. This is essentially a policy-based design pattern, which I arrived at before knowing the term.
+
+* **[Near-Plane Clipping](Sources/3DTri.cpp#L48-L273)** -- Triangles that straddle the near plane are handled case-by-case: 0 vertices behind (draw normally), 1 vertex behind (clip into two triangles), 2 vertices behind (clip into one). Each case computes line-plane intersections and correctly interpolates all per-vertex values at the new clip points.
+
+* **[Perspective-Correct Interpolation](Sources/3DTri.h#L234-L247)** -- The 1/z trick is woven throughout the rasterizer. Before interpolation, values are pre-multiplied by 1/z (`Values.TexCoords *= Values.z` where z is already 1/z). At each pixel, the real values are recovered by dividing out. This ensures texture coordinates and lighting interpolate correctly in screen space. Because it's built into the `VALUES` abstraction, perspective correction applies to everything automatically.
+
+* **[Mip-Map Generation and LOD Selection](Sources/Surface.cpp#L15-L110)** -- The mip chain is built by repeated 2x downsampling with box-filter averaging. The LOD level is selected with `MaxLevel - 1 - Log2(l)` where `l` is the projected screen-space texel density. I derived this by thinking about when individual texture pixels stop being visible -- which turns out to be the textbook formula. The [distance-based optimization](Sources/Surface.h#L549-L589) skips bilinear filtering for distant mip levels (where the mip already smoothed things out) and only does full bilinear at the finest level.
+
+* **[Probability Distribution Curves](Sources/HField.h#L82-L92)** -- The terrain generator uses shaped random distributions for bump heights and radii. `_HeightDistributionCurve` uses a `tan(x)/x` shape (moderate heights, occasional tall spikes) and `_RadiusDistributionCurve` uses an exponential `e^x - x` shape (mostly small bumps, long tail for wide ones). I didn't know what a PDF was at the time -- I just plotted functions in a graphing calculator until they looked right, then hardcoded the parameters. The [RCurve function](Sources/Random.h#L88-L91) pipes uniform randoms through these curves, which is essentially inverse transform sampling.
+
+* **[Fixed-Point Float Random Hack](Sources/Random.h#L78-L86)** -- Float randoms are generated by converting the range to 16.16 fixed-point, doing integer random generation there, and converting back. Avoids expensive FP division on Pentium-era hardware, giving uniform floats with ~0.000015 granularity. The self-aware comment `"Not to be used with big numbers"` documents the overflow risk.
+
+* **[Transition Effects](Sources/Trans.cpp#L38-L61)** -- A cinematic screen wipe: a glowing vertical light bar sweeps across the screen, revealing the new image behind it. The glow falloff uses a specular power curve (`Pow(..., Ns)`), repurposing the Phong lighting exponent for a 2D effect.
+
+* **[Rendering Text from Bitmap Fonts](Sources/Font.cpp)** -- Every glyph loaded from a BMP file and rendered pixel by pixel.
+
+* **[Lighting](Sources/Lighting.cpp#L42)** -- Ambient, diffuse, and specular (Phong model) with HDR / over-bright support.
+
+* **[The Drawing Surface](Sources/Surface.cpp)** -- Surfaces serve as both the screen and textures. You can render onto textures to create effects like mirrors. This also contains the mip-mapping engine.
 
 ### Running in DOSBox-X (2026)
 
@@ -62,22 +82,15 @@ Controls: Arrow keys to move/rotate camera, various letter keys toggle features 
    ```
    Note: ride.exe requires `BITMAPS/Ride.bmp` and `BITMAPS/BRide.bmp` (included in the repo) for its splash screen.
 
-Below is the introductory text & screenshots from that time.
+See [pipeline.txt](pipeline.txt) for an overview of the graphics processing stages.
 
+### Original Description (2004)
 
-### E3Dos Graphics Engine
+*Written at the time, preserved as-is:*
 
-E3Dos is a software rendering engine that I started programming in the beginning of 2004. Even though the engine has only about 11000 lines of code, I have written and rewritten (reorganized) each part of it at least twice. The sources are tidy (except for “3D.cpp”, the main file, which only applies the features of the engine), but most of them are uncommented.
-
-The program has no immediate practical use (maybe only didactical). I have written it in order to understand the technology in the back of the high-end engines on the game market.
-
-The programming language used is C++ (with some inline assembly procedures). The sources have been compiled with OpenWatcom 1.3 (uses Dos/4GW Rational Systems, protected mode, as target).
-
-Please read pipeline.txt for an idea of the graphics processing stages.
-
-You can look at some screen shots or clips in the “Screenshots and Clips” folder.
-
-The older version “.\Exe\Ride (From old version).exe” should work on any card (it uses only 8-bit colors). Triangles weren’t implemented at that time so it uses only lines.
+> E3Dos is a software rendering engine that I started programming in the beginning of 2004. Even though the engine has only about 11000 lines of code, I have written and rewritten (reorganized) each part of it at least twice. The sources are tidy (except for "3D.cpp", the main file, which only applies the features of the engine), but most of them are uncommented.
+>
+> The program has no immediate practical use (maybe only didactical). I have written it in order to understand the technology in the back of the high-end engines on the game market.
 
 ### Features
 
